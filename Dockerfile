@@ -1,27 +1,21 @@
-FROM haskell:7.10
+FROM jagregory/pandoc:latest
 
-MAINTAINER James Gregory <james@jagregory.com>
+MAINTAINER Peter St. John <peter.stjohn@nrel.gov>
 
-# will ease up the update process
-# updating this env variable will trigger the automatic build of the Docker image
-ENV PANDOC_VERSION "1.16.0.2"
-
-# install pandoc
-RUN cabal update && cabal install pandoc-${PANDOC_VERSION}
-
-# install latex packages
+# install pandoc filters, inkscape and other tools
 RUN apt-get update -y \
   && apt-get install -y --no-install-recommends \
-    texlive-latex-base \
-    texlive-xetex latex-xcolor \
-    texlive-math-extra \
-    texlive-latex-extra \
-    texlive-fonts-extra \
-    texlive-bibtex-extra \
-    fontconfig
+    texlive-extra-utils \
+    inkscape \
+    bibtool \
+    lmodern \
+  && cabal update && \ 
+     cabal install pandoc && \
+     cabal install pandoc-citeproc && \
+     cabal install pandoc-crossref
 
-WORKDIR /source
+# Add pandoc to the image path
+ENV PATH root/.cabal/bin:$PATH
 
-ENTRYPOINT ["/root/.cabal/bin/pandoc"]
-
-CMD ["--help"]
+ENTRYPOINT []
+CMD ["pandoc"]
