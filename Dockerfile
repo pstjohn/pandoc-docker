@@ -8,6 +8,7 @@ RUN apt-get update -y \
     texlive-extra-utils \
     inkscape \
     bibtool \
+    latexmk \
     lmodern \
   && cabal update && \ 
      cabal install pandoc && \
