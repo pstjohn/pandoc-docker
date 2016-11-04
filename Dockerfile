@@ -1,4 +1,4 @@
-FROM jagregory/pandoc:latest
+FROM haskell:7.10
 
 MAINTAINER Peter St. John <peter.stjohn@nrel.gov>
 
