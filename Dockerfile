@@ -11,9 +11,9 @@ RUN apt-get update -y \
     latexmk \
     lmodern \
   && cabal update && \ 
-     cabal install pandoc && \
-     cabal install pandoc-citeproc && \
-     cabal install pandoc-crossref
+     cabal install pandoc-1.17.2 && \
+     cabal install pandoc-citeproc-0.10.2.2 && \
+     cabal install pandoc-crossref-0.2.3.0
 
 # Add pandoc to the image path
 ENV PATH root/.cabal/bin:$PATH
